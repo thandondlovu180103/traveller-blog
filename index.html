@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="style.css" rel="stylesheet"/>
+    <title>Personal Traveller Blog</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+</head>
+<body>
+    <header id="hero-header"> 
+  <nav class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="places.html">Places</a>
+    <a href="tips.html">Tips</a>
+    <a href="contact.html">Contact Me</a>
+  </nav>
+        <div class="headings">
+        <h1>🌸Miles & Memories🌸</h1>
+        <h2>Exploring the world one story at a time.</h2>
+        <section class="sec1"><a href="#main-content" class="cta-button">Drift Into Beauty...</a></section>
+            </div>
+        
+    </header>
+    
+    <main>
+    <section id="main-content">
+    <figure class="image">
+    <img class="image" src="images/thando.webp" alt="A picture of myself.">
+    </figure>
+        <h2 class="about-me">About Me:</h2>
+            <p class="about-me">My name is Thando🌸, and I believe every journey is a story waiting to be told. From quiet streets to bustling cities, from mountain peaks to sandy shores. I travel not just to see, but to feel.</p>
+        
+            <p class="about-me">For me, traveling is about more than destinations; it’s about the people I meet, the cultures I learn from, and the little moments that stay with me long after the trip ends. This blog is my canvas, where I collect memories, capture emotions, and share the magic of the world through my eyes.</p>
+        
+            <p class="about-me">So come wander with me, let’s chase sunsets, explore hidden corners, and discover together that the world is endlessly beautiful. 🌍✈️</p>
+    </section>
+        
+    <section>
+    <h2>Recent Adventures</h2>
+        <div class="image-blocks">
+        <figure class="images">
+            <img src="images/soweto.webp" Alt="The famous towers of Soweto towers, ikasi lamakasi.">
+            <figcaption><strong>Soweto</strong> isn’t just where I grew up, it’s where I learned that every place has a rhythm, a story, and a soul. From the vibrant sounds of street music to the warmth of neighbors who feel like family, Soweto taught me to see the world with curiosity and heart. Every journey I take begins here.</figcaption>
+        </figure>
+        <figure class="images">
+            <img src="images/sunset.webp" alt="Cape Town's pink sunset.">
+            <figcaption>The sun melting into the Atlantic from Signal Hill is a memory I’ll keep forever. Nature has a way of slowing you down, reminding you to breathe, and <strong>Cape Town</strong>’s sunsets did exactly that, turning an ordinary evening into a piece of art.</figcaption>
+        </figure>
+        <figure class="images">
+            <img src="images/paris-night.jpg" alt="The city of love, Paris, at night.">
+            <figcaption><strong>Paris</strong> has a way of making every corner feel like a painting. From cobbled lanes in Montmartre to the glow of the Eiffel Tower at night, the city whispered stories with every step I took. Getting lost there wasn’t a mistake, it was the best way to fall in love with Paris.</figcaption>
+        </figure>
+        <figure class="images">
+        <img src="images/bangkok.webp" alt="Bangkok night market">
+            <figcaption>In the middle of a bustling <strong>Bangkok</strong> night market, I discovered the joy of Thai street food: spicy noodles, sweet mango sticky rice, and flavors I’d never imagined. Food is a language, and that night, I felt like I’d learned to speak a little more of the world.</figcaption>
+        </figure>
+        </div>
+        <p class="read-more"><a href="places.html">Read More Stories</a></p>
+    </section>
+        
+    <section>
+            <h2 class="map">My World Map:</h2>
+            <div id="map"></div>
+
+           <script>
+        // 1. Initialize the map
+        var map = L.map('map').setView([0, 20], 2);
+
+        // 2. Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // 3. Add your GeoJSON data with images
+        var geojsonData = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [2.320041, 48.85889] },
+                    "properties": {
+                        "title": "Paris, France",
+                        "description": "Wandering the streets of Paris, from Montmartre to the Eiffel Tower, discovering the city’s art, food, and magic.",
+                        "image": "images/ladyparis.webp"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [27.89, -26.222778] },
+                    "properties": {
+                        "title": "Soweto, South Africa",
+                        "description": "Where my journey began, vibrant streets, community, and the roots that inspire every adventure.",
+                        "image": "images/soweto2.webp"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [18.41722, -33.92883] },
+                    "properties": {
+                        "title": "Cape Town, South Africa",
+                        "description": "Chasing sunsets and exploring mountains, oceans, and hidden natural gems in Cape Town.",
+                        "image": "images/cpt.jpg"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": { "type": "Point", "coordinates": [100.493509, 13.752494] },
+                    "properties": {
+                        "title": "Bangkok, Thailand",
+                        "description": "Immersed in Thai culture, food, and bustling night markets, adventures that awaken all the senses.",
+                        "image": "images/market-7484192_640.jpg"
+                    }
+                }
+            ]
+        };
+
+        // 4. Add markers and bind popups
+        var geojsonLayer = L.geoJSON(geojsonData, {
+            pointToLayer: function(feature, latlng) {
+                var coords = feature.geometry.coordinates;
+                return L.marker([coords[1], coords[0]]);
+            },
+            onEachFeature: function(feature, layer) {
+                if (feature.properties && feature.properties.title) {
+                    var popupContent = `<strong>${feature.properties.title}</strong><br>` +
+                                       `${feature.properties.description}<br>`;
+
+                    if (feature.properties.image) {
+                        popupContent += `<img src="${feature.properties.image}" alt="${feature.properties.title}" style="width:200px; margin-top:5px;">`;
+                    }
+
+                    layer.bindPopup(popupContent);
+                }
+            }
+        }).addTo(map);
+
+        // 5. Auto zoom to show all markers
+        map.fitBounds(geojsonLayer.getBounds());
+    </script>
+        
+        <p class="all-places">See <a href="places.html">All Places</a> I've Visited.</p>
+        </section>
+        
+        <section id="tips">
+        <h2 class="travel">Travel Tips and Tricks!</h2>
+            <div class="tips-container">
+            <div class="tip-card">
+            <h3>Pack Smart, Travel Light</h3>
+                <p>Bring versatile clothing, roll your clothes, and always have a travel-size first aid kit.</p>
+             </div>
+            <div class="tip-card">
+            <h3>Local Eats Over Touristy Spots</h3>
+                <p>Try street food and local cafes, you’ll taste the real culture and save money.</p>
+            </div>
+            <div class="tip-card">
+            <h3>Capture Memories, Not Just Photos</h3>
+                <p>Journal or record short videos to relive your journey later, not just snapshots.</p>
+            </div>
+            <div class="tip-card">
+            <h3>Learn a Few Local Words</h3>
+                <p>A simple ‘hello’, ‘thank you’, or ‘please’ goes a long way in connecting with locals.</p>
+            </div>
+            </div>
+            <p class="more-tips"><a href="tips.html">More Travel Tips</a></p>
+        </section>
+        
+    </main>
+</body>
+<footer>
+    <div class="footer-container">
+    <div class="footer-logo">
+      <h3>Miles & Memories</h3>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="places.html">Places</a>
+      <a href="tips.html">Tips</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-social">
+      <a href="#">Instagram</a>
+      <a href="#">Twitter</a>
+      <a href="mailto:hello@milesandmemories.com">Email</a>
+    </div>
+  </div>    
+</footer>
+</html>
